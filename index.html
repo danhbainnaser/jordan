@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الأردن السياحية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #064e3b;   /* أخضر زمردي غامق */
+            --secondary: #10b981; /* أخضر فاتح */
+            --bg-light: #f1f5f9;  /* رمادي فاتح جداً للخلفية */
+            --card-white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Cairo', sans-serif; 
+            user-select: none;
+        }
+
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-main); 
+            line-height: 1.7; 
+        }
+
+        /* تغيير شكل الهيدر بالكامل */
+        header { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 60px 20px; 
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); /* حركة قص في الهيدر */
+            margin-bottom: 30px;
+        }
+
+        header h1 { font-size: 2.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+        .page { display: none; padding: 20px; max-width: 1100px; margin: auto; min-height: 80vh; }
+        .active { display: block; animation: slideUp 0.6s ease-out; }
+
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* تغيير شكل شبكة البطاقات */
+        .home-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
+        }
+
+        .nav-card {
+            background: var(--card-white); 
+            border-radius: 8px; 
+            overflow: hidden;
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .nav-card:hover { transform: scale(1.03); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .nav-card img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(20%); transition: 0.3s; }
+        .nav-card:hover img { filter: grayscale(0%); }
+        
+        .nav-card h3 { 
+            padding: 15px; 
+            background: white; 
+            color: var(--primary); 
+            text-align: center; 
+            font-weight: 700;
+        }
+
+        /* تنسيق الصفحات الداخلية */
+        .page-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-bottom: 40px; 
+            border-bottom: 2px dashed var(--secondary);
+            padding-bottom: 15px;
+        }
+
+        .back-btn { 
+            background: var(--primary); color: white; border: none; 
+            padding: 8px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; 
+        }
+
+        .layout { display: grid; grid-template-columns: 300px 1fr; gap: 40px; }
+        
+        .item-btn {
+            background: var(--card-white); 
+            padding: 15px; 
+            border-radius: 4px;
+            cursor: pointer; 
+            margin-bottom: 10px;
+            border-right: 5px solid transparent; 
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .item-btn:hover, .item-btn.active-item { 
+            border-right-color: var(--secondary); 
+            background: #ecfdf5; 
+            color: var(--primary);
+        }
+
+        .display-box { 
+            background: var(--card-white); 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .display-box img { 
+            width: 100%; 
+            border-radius: 4px; 
+            margin-bottom: 25px; 
+            display: none; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .display-box p { color: var(--text-muted); font-size: 1.05rem; text-align: justify; }
+
+        footer { 
+            background: var(--primary); 
+            color: white; 
+            text-align: center; 
+            padding: 40px 20px; 
+            margin-top: 80px; 
+        }
+
+        .footer-content strong { color: var(--secondary); }
+
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>اكتشف سحر الأردن وجمال معالمه</h1>
+    <p>رحلة عبر التاريخ والطبيعة الخلابة</p>
+</header>
+
+<div id="home" class="page active">
+    <div class="home-grid">
+        <div class="nav-card" onclick="openSection('recreational')">
+            <img src="hsj[lhl.jpg" alt="استجمام">
+            <h3>السياحة الاستجمامية</h3>
+        </div>
+        <div class="nav-card" onclick="openSection('medical')">
+            <img src="ugh[.jpg" alt="علاج">
+            <h3>السياحة العلاجية</h3>
+        </div> 
+        <div class="nav-card" onclick="openSection('educational')">
+            <img src="jugdl.jpg" alt="تعليم">
+            <h3>السياحة التعليمية</h3>
+        </div>
+        <div class="nav-card" onclick="openSection('entertainment')">
+            <img src="jvtdi.jpg" alt="ترفيه">
+            <h3>السياحة الترفيهية</h3>
+        </div>
+        <div class="nav-card" onclick="openSection('food')">
+            <img src="vrl.jpg" alt="أكل">
+            <h3>أشهر الأكلات الأردنية</h3>
+        </div>
+        <div class="nav-card" onclick="openSection('historical')">
+            <img src="hevdm.jpg" alt="آثار">
+            <h3>المواقع الأثرية</h3>
+        </div>
+    </div>
+</div>
+
+<div id="subPage" class="page">
+    <div class="page-header">
+        <h2 id="pageTitle" style="color: var(--primary);"></h2>
+        <button class="back-btn" onclick="goHome()">← العودة للرئيسية</button>
+    </div>
+    <div class="layout">
+        <div id="sideMenu" class="menu-list"></div>
+        <div class="display-box">
+            <img id="mainImg" src="" alt="الموقع">
+            <h3 id="itemName" style="margin-bottom: 15px; color: var(--primary); font-size: 1.5rem;"></h3>
+            <div id="itemDesc" style="line-height: 1.8;"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>مشروع مادة إنشاء المواقع الإلكترونية</p>
+        <p>إعداد الطالبة: <strong>دانه احمد بني نصر</strong></p>
+        <p>الرقم الجامعي: <strong>202520607</strong></p>
+        <p>جميع الحقوق محفوظة © 2026</p>
+    </div>
+</footer>
+
+<script>
+    // البيانات بقيت كما هي لضمان عدم حدوث أخطاء برمجية
+    const siteData = {
+        recreational: {
+            title: "السياحة الاستجمامية",
+            items: [
+                { name: "البحر الميت", desc: "البحر الميت هو بحيرة ملحية مغلقة تقع في أخدود وادي الأردن ضمن الشق السوري الأفريقي، على خط الحدود الفاصل بين الأردن وفلسطين التاريخية. يشتهر بأنه أخفض نقطة على سطح الكرة الأرضية.", img: "بحر.jpg" },
+                { name: "وادي رم", desc: "وادي رم هو صحراء متنوعة التضاريس يسوده المناخ الصحرواي ويقع ضمن حدود صحراء حِسمى وهي واحدة من أكثر الصحارى جمالًا في العالم.", img: "واديرم.jpg" },
+                { name: "العقبة", desc: "العقبة هي المدينة الساحلية الوحيدة في الأردن، تقع في أقصى جنوب المملكة على ساحل البحر الأحمر، وتعد مركزاً سياحياً وتجارياً هاماً.", img: "العقبة.jpg" }
+            ]
+        },
+        medical: {
+            title: "السياحة العلاجية",
+            items: [
+                { name: "حمامات ماعين", desc: "تقع حمّامات ماعين جنوبي عمّان، وهي منطقة تنخفض 120 مترا عن سطح البحر وتحتوي على ينابيع معدنية ساخنة للعلاج والاستجمام.", img: "lhudk.jpg" },
+                { name: "مركز فرح الطبي", desc: "صرح طبي متطور يضع الأردن على خارطة الطب العالمية بجودة الخدمات والتقنيات الطبية الحديثة.", img: "فرح.jpg" }
+            ]
+        },
+        educational: {
+            title: "السياحة التعليمية",
+            items: [
+                { name: "جامعة اليرموك", desc: "جامعة اليرموك، هي جامعة حكومية شاملة، تقع بالقرب من مركز مدينة إربد شمال الأردن. منذ تأسيسها عام 1976، كان للجامعة مكانة رائدة بين جامعات الأردن والشرق الأوسط  تتألف الجامعة من 17 كلية، تُقدم 76 برنامجاً للبكالوريوس، 68 برنامجاً لماجستير، و16 برنامج دكتوراة في تخصصات مختلفة. كما تضم الجامعة 12 مركزاً للأبحاث والأعمال.", img: "hlum.jpg" },
+                { name: "اللغة العربية للأجانب", desc: "يُعتبر الأردن وجهة عالمية بارزة لتعليم اللغة العربية للأجانب نظراً لتميز اللهجة الأردنية وقربها من الفصحى.", img: "uvfd.jpg" }
+            ]
+        },
+        entertainment: {
+            title: "السياحة الترفيهية",
+            items: [
+                { name: "البوليفارد - العبدلي", desc: "الوجهة العصرية للتسوق والترفيه، حيث تجتمع الحداثة بالفخامة في قلب العاصمة عمان.", img: "f,gdthv].jpg" },
+                { name: "حدائق الملك عبدالله", desc: "حدائق الملك عبد الله الثاني في محافظة إربد بدأ العمل به عام 2006 وتم افتتاحها في 9 اغسطس 2015 حيث افتتحها الأمير الحسين بن عبد الله ولي العهد، تمتد على 177 دونم وبلغت تكلفة المشروع حوالي 15 مليون دينار أردني وروعي في تصميمه الجوانب الترفيهية والخدمية المتنوعة وتضم مسطحات خضراء وأخرى مائية وملاعب للرياضات المختلفة وأخرى للأطفال وممرات لرياضة الدراجات الهوائية، إضافة إلى مرافق خدمية كالمطاعم والاستراحات", img: "v,lhkd.jpg" }
+            ]
+        },
+        food: {
+            title: "المطبخ الأردني",
+            items: [
+                { name: "المنسف", desc: "الطبق الوطني الأول في الأردن، يتكون من لحم الضأن المطبوخ بالجميد والأرز، ويقدم في المناسبات الكبرى.", img: "lkst.jpg" },
+                { name: "مقلوبة", desc: "تعتبر المقلوبة من الأكلات الشعبية المشهورة في بلاد الشام وخاصةً في الأردن وفلسطين، وتحتوي على الأرز والدجاج أو اللحم، كما يمكن تحضيرها باستخدام الباذنجان أو الزهرة أو البطاطا أو بإضافتهم معاً، وتمتاز هذه الأكلة بطعمها اللذيذ والشهي. انتشرت طريقة تحضيرها في دول العالم العربي مثل سوريا، ومصر، ولبنان وغيرها، وسنتطرق في هذا المقال إلى ذكر الطريقة الصحيحة لإعداد طبخة المقلوبة الأردنية.", img: "zarb.jpg" }
+            ]
+        },
+        historical: {
+            title: "المواقع الأثرية",
+            items: [
+                { name: "البتراء", desc: "المدينة الوردية المنحوتة في الصخر، إحدى عجائب الدنيا السبع، وكانت عاصمة الأنباط قديماً.", img: "batra.jpg" },
+                { name: "جرش", desc: "تعتبر من أفضل المدن الرومانية المحافظ عليها في العالم، وتشتهر بشوارع الأعمدة والمسارح الكبيرة.", img: "جرش.jpg" }
+            ]
+        }
+    };
+
+    function openSection(id) {
+        document.getElementById('home').classList.remove('active');
+        const section = siteData[id];
+        document.getElementById('pageTitle').innerText = section.title;
+        const menu = document.getElementById('sideMenu');
+        menu.innerHTML = '';
+
+        document.getElementById('mainImg').style.display = 'none';
+        document.getElementById('itemName').innerText = 'قائمة الاستكشاف';
+        document.getElementById('itemDesc').innerText = 'يرجى اختيار أحد المواقع من القائمة اليمنى لعرض التفاصيل الكاملة والصور.';
+
+        section.items.forEach((item, index) => {
+            const btn = document.createElement('div');
+            btn.className = 'item-btn';
+            btn.innerText = item.name;
+            btn.onclick = () => {
+                document.querySelectorAll('.item-btn').forEach(b => b.classList.remove('active-item'));
+                btn.classList.add('active-item');
+                const img = document.getElementById('mainImg');
+                img.src = item.img;
+                img.style.display = 'block';
+                document.getElementById('itemName').innerText = item.name;
+                document.getElementById('itemDesc').innerText = item.desc;
+            };
+            menu.appendChild(btn);
+        });
+
+        document.getElementById('subPage').classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function goHome() {
+        document.getElementById('subPage').classList.remove('active');
+        document.getElementById('home').classList.add('active');
+    }
+
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+
+</body>
+</html>
